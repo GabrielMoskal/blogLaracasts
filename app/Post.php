@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -23,6 +24,16 @@ class Post extends Model
         // $this->comments returns collection of all comments associated with the post,
         // $this->comments()->create() return this chaining-able object
         $this->comments()->create(compact('body'));
+    }
+
+    public function scopeFilter($query, $filters) {
+        if ($month = $filters['month']) {
+            $query->whereMonth('created_at', Carbon::parse($month)->month);
+        }
+
+        if ($year = $filters['year']) {
+            $query->whereMonth('created_at', $year);
+        }
     }
 
     // we set fields with we are OK to be mass assignment like in PostsController::store()

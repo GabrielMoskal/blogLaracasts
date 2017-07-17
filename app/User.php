@@ -30,4 +30,19 @@ class User extends Authenticatable
     public function posts() {
         return $this->hasMany(Post::class);
     }
+
+    public function publish(Post $post) {
+        $this->posts()->save($post);
+    }
+
+    /**
+     * Set the user's first name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    // https://laravel.com/docs/5.4/eloquent-mutators#defining-a-mutator
+    public function setPasswordAttribute($value) {
+        $this->attributes['password'] = bcrypt($value);
+    }
 }
