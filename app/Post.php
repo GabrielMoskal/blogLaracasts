@@ -44,6 +44,13 @@ class Post extends Model
             ->toArray();
     }
 
+    public function tags()
+    {
+        // Any post may have many tags
+        // Any tag may be applied to many posts
+        return $this->belongsToMany(Tag::class);
+    }
+
     // we set fields with we are OK to be mass assignment like in PostsController::store()
     // but this can get a little annoying, so we have a couple choices
     //protected $fillable = ['title', 'body'];

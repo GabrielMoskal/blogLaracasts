@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Post;
+use App\Tag;
 use App\Billing\Stripe;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,7 +21,9 @@ class AppServiceProvider extends ServiceProvider
         // in every layouts.sidebar
         // we can send classpath instead of a function, so we can do dedicated class
         view()->composer('layouts.sidebar', function($view) {
-            $view->with('archives', Post::archives());
+            $archives = Post::archives();
+            $tags = Tag::has('posts')->pluck('name');
+            $view->with(compact($archives, $tags));
         });
     }
 
