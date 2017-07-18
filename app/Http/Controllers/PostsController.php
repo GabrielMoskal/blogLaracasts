@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use App\Post;
+use App\Repositories\Posts;
 
 class PostsController extends Controller
 {
@@ -16,22 +17,20 @@ class PostsController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
 
-    public function index() {
+    public function index(Posts $posts) {
 
+        // Dependency Injection, Laravel uses reflection
+        $posts = $posts->all();
+
+        /*
         $posts = Post::latest()
             ->filter(request(['month', 'year']))
             ->get();
-
+        */
         // latest() zbiera od najnowszego posty jak Post::orderBy('created_at', 'desc')
         //$posts = Post::latest();
 
-        $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
-            ->groupBy('year', 'month')
-            ->orderByRaw('min(created_at)')
-            ->get()
-            ->toArray();
-
-        return view('posts.index', compact('posts', 'archives'));
+        return view('posts.index', compact('posts'));
     }
 
     public function show(Post $post) {
@@ -61,6 +60,8 @@ class PostsController extends Controller
         auth()->user()->publish(
             new Post(request(['title', 'body']))
         );
+
+        session()->flash('message', 'Your post has now been published.');
 
         // and then redirect to the home page
         return redirect('/');
