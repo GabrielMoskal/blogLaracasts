@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Services\CaptchaService;
 
 class SessionsController extends Controller
 {
@@ -14,7 +14,13 @@ class SessionsController extends Controller
         return view('sessions.create');
     }
 
-    public function store() {
+    public function store(CaptchaService $captchaService) {
+        if ($captchaService->captcha() === true) {
+            return $this->authenticateUser();
+        }
+    }
+
+    private function authenticateUser() {
         // Attempt to authenticate the user
         // If not, redirect back
         if (! auth()->attempt(request(['email', 'password']))) {
@@ -22,8 +28,6 @@ class SessionsController extends Controller
                 'message' => 'Please check your credentials and try again.'
             ]);
         };
-
-        // Redirect to the home page
         return redirect()->home();
     }
 

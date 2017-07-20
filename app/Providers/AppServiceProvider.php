@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layouts.sidebar', function($view) {
             $archives = Post::archives();
             $tags = Tag::has('posts')->pluck('name');
-            $view->with(compact($archives, $tags));
+            $view->with(compact('archives', 'tags'));
         });
     }
 

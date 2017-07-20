@@ -6,8 +6,7 @@
 
     </h2>
     <p class="blog-post-meta">
-        <?php var_dump($post->name) ?>
-        {{ $post->user }} DOESNT WORK
+        {{ $post->user->name }} on
         {{ $post->created_at->toFormattedDateString() }}
     </p>
 

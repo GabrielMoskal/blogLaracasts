@@ -19,11 +19,18 @@
             </div>
 
             <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LeirykUAAAAAPZPGFm27N8AdvX2xTKf83Ur50nQ"></div>
+            </div>
+
+            <div class="form-group">
                 <button type="submit" class="btn btn-primary">Sign In</button>
             </div>
 
-            @include('layouts.errors');
+            @include('layouts.errors')
 
         </form>
     </div>
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
 @endsection

@@ -23,7 +23,10 @@ class Post extends Model
         */
         // $this->comments returns collection of all comments associated with the post,
         // $this->comments()->create() return this chaining-able object
-        $this->comments()->create(compact('body'));
+
+        $post_id = $this->id;
+        $user_id = auth()->user()->id;
+        $this->comments()->create(compact('body', 'post_id', 'user_id'));
     }
 
     public function scopeFilter($query, $filters) {
@@ -37,7 +40,7 @@ class Post extends Model
     }
 
     public static function archives() {
-        return static ::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
+        return static::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
             ->groupBy('year', 'month')
             ->orderByRaw('min(created_at)')
             ->get()
