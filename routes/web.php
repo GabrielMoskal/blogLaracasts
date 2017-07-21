@@ -30,3 +30,4 @@ Route::post('/login', 'SessionsController@store');
 Route::get('/logout', 'SessionsController@destroy');
 
 Route::get('/cart', 'CartController@create');
+Route::post('/buy', 'CartController@store');

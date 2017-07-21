@@ -1,9 +1,92 @@
 <?php
 
-namespace app\Http\Controllers;
+namespace App\Http\Controllers;
 
+use App\Cart;
+use Illuminate\Http\Request;
 
-class CartController
+class CartController extends Controller
 {
-    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('cart.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $items = request(['itemsToSend']);
+        //var_dump($items);
+
+        $decodedItems = json_decode($items['itemsToSend']);
+
+        var_dump($decodedItems[0]);
+
+        dd($items);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Cart  $cart
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Cart $cart)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Cart  $cart
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Cart $cart)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Cart  $cart
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Cart $cart)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Cart  $cart
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Cart $cart)
+    {
+        //
+    }
 }

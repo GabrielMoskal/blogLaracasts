@@ -3,6 +3,7 @@
         <nav class="nav blog-nav">
             <a class="nav-link active" href="/">Home</a>
             <a class="nav-link" href="/tasks">Tasks</a>
+            <a class="nav-link" href="/cart">Cart</a>
             @if(Auth::check())
                 <a class="nav-link" href="/posts/create">New post</a>
                 <a class="nav-link" href="/logout">Logout</a>
