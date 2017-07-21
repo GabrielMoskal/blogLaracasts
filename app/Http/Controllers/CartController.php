@@ -36,11 +36,11 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $items = request(['itemsToSend']);
-        //var_dump($items);
-
         $decodedItems = json_decode($items['itemsToSend']);
+        $itemName = $decodedItems[0]->itemName;
+        $numOfItems = $decodedItems[0]->quantity;
 
-        var_dump($decodedItems[0]);
+        Cart::addItem($itemName, $numOfItems);
 
         dd($items);
     }

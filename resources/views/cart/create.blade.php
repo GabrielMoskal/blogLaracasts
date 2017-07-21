@@ -15,7 +15,6 @@
                 </thead>
                 <tbody data-bind="foreach: items">
                     <tr>
-                        <td data-bind="text: item().itemName"></td>
                         <td>
                             <select data-bind="options: $root.availableItems, value: item,
                                                optionsText: 'itemName'"></select>

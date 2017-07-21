@@ -15,9 +15,9 @@ class SessionsController extends Controller
     }
 
     public function store(CaptchaService $captchaService) {
-        if ($captchaService->captcha() === true) {
+        //if ($captchaService->captcha() === true) {
             return $this->authenticateUser();
-        }
+        //}
     }
 
     private function authenticateUser() {
