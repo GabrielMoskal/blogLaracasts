@@ -91,7 +91,6 @@
             ];
 
             self.items = ko.observableArray([
-                new Cart(self.availableItems[0], 1),
                 new Cart(self.availableItems[0], 1)
             ]);
 

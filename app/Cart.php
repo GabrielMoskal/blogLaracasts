@@ -4,8 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Support\Facades\DB;
-
 class Cart extends Model
 {
 
@@ -19,7 +17,20 @@ class Cart extends Model
         return $this->hasMany(Item::class);
     }
 
-    public function scopeAddItem($query, $itemName, $numOfItems) {
+    public function scopeAddItems($query, $decodedItems) {
+        foreach ($decodedItems as $item) {
+            $itemName = $item->itemName;
+            $numOfItems = $item->quantity;
+            $this->addItem($query, $itemName, $numOfItems);
+        }
+    }
+
+    public function addItem($query, $itemName, $numOfItems) {
+        var_dump($numOfItems);
+        if ($numOfItems == 0) {
+            $this->removeItem($query, $itemName);
+            return;
+        }
 
         $userId = auth()->user()->id;
         $itemId = Item::select('id')
@@ -32,5 +43,18 @@ class Cart extends Model
                 'user_id' => $userId,
                 'item_id' => $itemId]
         );
+    }
+
+    public function removeItem($query, $itemName) {
+        $userId = auth()->user()->id;
+
+        $itemId = Cart::select('id')
+            ->where('itemName', $itemName)
+            ->where('user_id', $userId)
+            ->get();
+
+        var_dump($itemId);
+        $cart = $this->find($itemId);
+
     }
 }
