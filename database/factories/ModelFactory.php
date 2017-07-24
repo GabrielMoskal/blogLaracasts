@@ -33,3 +33,18 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'body' => $faker->paragraph
     ];
 });
+
+$factory->define(App\Item::class, function (Faker\Generator $faker) {
+
+    return [
+        'itemName' => $faker->unique()->colorName,
+        'price' => round($faker->randomFloat(), 2)
+    ];
+});
+
+$factory->define(App\Cart::class, function (Faker\Generator $faker) {
+
+   return [
+       
+   ];
+});

@@ -37,8 +37,8 @@ class CartController extends Controller
     {
         $items = request(['itemsToSend']);
         $decodedItems = json_decode($items['itemsToSend']);
+        var_dump($decodedItems);
         Cart::addItems($decodedItems);
-
 
 
         dd($items);

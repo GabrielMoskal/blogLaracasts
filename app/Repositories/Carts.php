@@ -1,33 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Carts
 {
-
-    protected $fillable = ['user_id', 'item_id', 'num_of_items'];
-
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
-
-    public function items() {
-        return $this->hasMany(Item::class);
-    }
-
-    public function scopeAddItems($query, $decodedItems) {
-        foreach ($decodedItems as $item) {
+    public function addItems($items) {
+        foreach ($items as $item) {
             $itemName = $item->itemName;
             $numOfItems = $item->quantity;
-            $this->addItem($query, $itemName, $numOfItems);
+            $this->addItem($itemName, $numOfItems);
         }
     }
 
-    public function addItem($query, $itemName, $num_of_items) {
+    public function addItem($itemName, $num_of_items) {
         if ($num_of_items == 0) {
-            $this->removeItem($query, $itemName);
+            Item::removeItem($itemName);
             return;
         }
 

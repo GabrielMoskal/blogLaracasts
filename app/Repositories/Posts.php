@@ -13,7 +13,8 @@ class Posts {
         $this->redis = $redis;
     }
 
-    public function all() {
+    public function all()
+    {
         return Post::orderBy('created_at', 'desc')->get();
     }
 }
